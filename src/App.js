@@ -21,6 +21,7 @@ import  { ContainedSection }  from './components/molecules'
 
 import { adjacent, convert, hue } from 'chromatism';
 import { colors } from './styleConfig/styleVars';
+import theme from './styleConfig/theme';
 
 
 
@@ -86,7 +87,7 @@ class App extends Component {
 
     return (
       <Page>
-        <ContainedSection  maxWidth={'90vw'} py={6}>
+        <ContainedSection  maxWidth={'90vw'} py={6} bg={theme.primary} bgSkew={5}>
             <Grid columns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}>
 
               <Cell pr={[null, '6em']}>
@@ -104,12 +105,39 @@ class App extends Component {
                   <Input p={3} type="password" placeholder="test" />
                   <Input p={3} placeholder="test" />
                   <Input p={3} placeholder="test" />
-                  <Button round>View  demo</Button>
+                  <Button rounded primary>View  demo</Button>
+                  <Button outline rounded ml={2}>View  demo</Button>
+                  <Button secondary rounded>View  demo</Button>
+                  <Button outline rounded iconRight="export" ml={2}>Get started</Button>
                 </Box>
               </Cell>
 
             </Grid>
         </ContainedSection>
+
+
+        <ContainedSection  maxWidth={'90vw'} py={6}>
+            <Grid columns={['repeat(2, 1fr)']}>
+              <Cell>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, adipisci. Itaque eos maiores consequatur molestias placeat asperiores necessitatibus suscipit, impedit ratione tenetur, totam error nobis vero non laudantium quod quasi.</p>
+                <Button secondary rounded mr={2} caps>go back</Button>
+                <Button secondary rounded mr={2} iconLeft="bell">cancel</Button>
+                <Button rounded primary iconRight="arrow-right">continue</Button>
+
+              </Cell>
+              <Cell>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, repellat itaque id nesciunt quidem praesentium reprehenderit quae, aperiam, dolores sunt excepturi sint consectetur quia magnam nulla aliquam in, debitis ipsum!</p>
+                <Button outline rounded>View  demo</Button>
+
+              </Cell>
+
+
+            </Grid>
+        </ContainedSection>
+
+
+
+
 
         <Container maxWidth={"90vw"} py={[3, 4, 6]}>
           <Grid gap={"1em"} columns={["repeat(1,1fr)", "repeat(4,1fr)"]}>
