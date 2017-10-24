@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import {dissoc} from 'ramda'; // http://ramdajs.com/docs/
 
-import styled, {css} from "styled-shortcut-components"; // https://github.com/donavon/styled-shortcuts
+import styled, {css} from "styled-components"; // https://github.com/donavon/styled-shortcuts
 import is, { isNot, isOr, isSomeNot } from "styled-is";
 import { responsiveStyle, space } from "styled-system";
 import { Grid as G, Cell as C } from "styled-css-grid"; // https://styled-css-grid.js.org/
@@ -11,27 +10,17 @@ import {
   Container,
   Card,
   Input,
-  Box as b,
   BackgroundImage as bg,
+  Box as b,
   Subhead,
   Small
 } from "rebass"; // http://jxnblk.com/rebass/components/
 
-import { adjacent, convert } from 'chromatism';
+import  { Box, Section, Button  }  from './components/atoms'
+import  { ContainedSection }  from './components/molecules'
 
-let color = convert(pink).hex;
-
-let colors = adjacent(40, 3, color).hex;
-
-// let gradient = `linear-gradient(to right bottom ${colors[0]} ${colors[1]} ${colors[2]};`
-let gradient = `linear-gradient(-70deg, ${colors[0]} 35%, ${colors[1]} 70%, ${colors[2]} 90%);`
-
-// let gradient = "blue"
-
-console.log(gradient);
-
-
-
+import { adjacent, convert, hue } from 'chromatism';
+import { colors } from './styleConfig/styleVars';
 
 
 
@@ -42,15 +31,6 @@ let BackgroundImage = styled(bg)`
   }
 `;
 
-// include in containers to
-// vertically space out their children
-let rhythm = is('rhythm')` & > * + * { margin-top: 1em; } `
-
-let Box = styled(b)`
-  ${is('centerText')`text-align:center`};
-  ${rhythm}
-`;
-
 let Toolbar = styled(t)`
   background: none;
   color: darkgray;
@@ -58,11 +38,10 @@ let Toolbar = styled(t)`
 `;
 
 let Page = styled.div`
-  background: pink;
+  ${'' /* background: pink; */}
   min-height: 100vh;
 `;
 
-let Section = styled(b)`background: ${props => props.bg};`;
 
 // responsive grid cols
 const columns = responsiveStyle({
@@ -70,35 +49,34 @@ const columns = responsiveStyle({
   cssProperty: "grid-template-columns"
 });
 
-let Grid = styled(G)`${columns};`;
+let Grid = styled(G)`${columns}`;
+let Cell = styled(C)`
+  overflow: visible; // to allow shadows
+  ${space} `
 
-let Cell = styled(C)` ${space} `
+let Sm = styled(Small)`
+  display: block;
+  color: ${props => props.theme.main};
+`;
 
 
 
-
-const ContainedSection = ( props ) => (
-  <Section bg={props.bg}>
-    <Container maxWidth={props.maxWidth} {...dissoc('bg', props)}>
-      {props.children}
-    </Container>
-  </Section>
-);
-
-let Sm = styled(Small)`display: block;`;
+/*------------------------------------------------------
+ Application
+ ----------------------------------------------------- */
 
 class App extends Component {
   render() {
     let cells = [1, 2, 3, 4];
 
     let makeCard = c => (
-      <Cell>
+      <Cell key={c}>
         <Card bg={'white'}>
           <BackgroundImage
-            ratio={1 / 2}
+            ratio={1 / 1.5}
             src={"http://via.placeholder.com/350x150"}
           />
-          <Box p={"1em"} centerText>
+          <Box p={"1em"}>
             <Subhead>Card # {c}</Subhead>
             <Sm>Sm meta text</Sm>
           </Box>
@@ -108,8 +86,9 @@ class App extends Component {
 
     return (
       <Page>
-        <ContainedSection bg={gradient} maxWidth={'90vw'} py={6}>
+        <ContainedSection  maxWidth={'90vw'} py={6}>
             <Grid columns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}>
+
               <Cell pr={[null, '6em']}>
                 <h2>This is TwoPence</h2>
                 <p>
@@ -119,13 +98,16 @@ class App extends Component {
                   atque provident ducimus harum accusamus nesciunt.
                 </p>
               </Cell>
+
               <Cell>
-                <Box bg={"white"} p={4} rhythm>
+                <Box bg={"white"} p={4} spacechildren={'true'} shadow={'true'}>
                   <Input p={3} type="password" placeholder="test" />
                   <Input p={3} placeholder="test" />
                   <Input p={3} placeholder="test" />
+                  <Button round>View  demo</Button>
                 </Box>
               </Cell>
+
             </Grid>
         </ContainedSection>
 
@@ -134,6 +116,8 @@ class App extends Component {
             {cells.map(makeCard)}
           </Grid>
         </Container>
+
+
       </Page>
     );
   }
