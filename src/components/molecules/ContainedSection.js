@@ -13,7 +13,7 @@ const SectionBg = styled.div`
   grid: repeat(5,200px)/repeat(10, 1fr);
   transform-origin: 0;
   position: absolute;
-  z-index: 0;
+  z-index: -1;
   width: 100%;
   display: grid;
   transform: ${props => `skewY(-${props.bgSkew}deg)`};

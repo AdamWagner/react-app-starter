@@ -1,17 +1,28 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import styled from "styled-components"; // https://github.com/donavon/styled-shortcuts
 import is from "styled-is";
 import { lighten, darken } from "polished";
 import { adjacent, convert, brightness } from "chromatism";
-import {absPseudo, clickableReset} from "../../styleConfig/mixins";
+import { absPseudo, clickableReset } from "../../styleConfig/mixins";
 import { makeGradient } from "../../styleConfig/styleVars";
 import { space } from "styled-system";
 import Icon from "../Icon";
 
+import theme from '../../styleConfig/theme'
+
 /*------------------------------------------------------
 <Button
   bg={"white"}       // will be passed to css bg prop
->
+  big                // increase font size to 1.25em
+  small              // decreases font size to 0.75em
+  rounded            // defaults to true. Inherits theme.radius.
+  alignRight         // Requires parent to be flexbox column
+  alignLeft          // Requires parent to be flexbox column
+  caps               // Sets text in uppercase
+  secondary          // sets background to white
+  outline            // white background, primary color border
+ >
   ...
 </Box>
  ----------------------------------------------------- */
@@ -21,18 +32,20 @@ class ButtonBase extends Component {
     let { iconLeft, iconRight } = this.props;
     return (
       <div className={this.props.className}>
-        {iconLeft && <Icon name={iconLeft} size={"1em"} thickness={3} />}
+        <span>
+          {iconLeft && <Icon name={iconLeft} size={"1em"} thickness={3} />}
 
-        <div
-          style={{
-            marginLeft: iconLeft && "0.25em",
-            marginRight: iconRight && "0.5em"
-          }}
-        >
-          {this.props.children}
-        </div>
+          <span
+            style={{
+              marginLeft:  iconLeft && "0.25em",
+              marginRight: iconRight && "0.5em"
+            }}
+          >
+            {this.props.children}
+          </span>
 
-        {iconRight && <Icon name={iconRight} size={"1em"} thickness={3} />}
+          {iconRight && <Icon name={iconRight} size={"1em"} thickness={3} />}
+        </span>
       </div>
     );
   }
@@ -44,40 +57,34 @@ let speed = 0.2;
 // component
 const Button = styled(ButtonBase)`
  ${space};
+ ${clickableReset}
+ ${props => props.theme.shadows.two};
+ background: ${props =>
+   props.primary ? props.theme.primary : props.theme.secondary};
+
  display: inline-flex;
  align-items: center;
  position: relative;
  padding: 0.75em 1.5em;
- margin-top: 0.75em;
- margin-bottom: 0.75em;
-
-${""/* hack required to align baseline of  buttons with icons */}
- bottom: ${props => props.iconLeft && "-0.1em"};
-
- background: ${props =>
- props.primary ? props.theme.primary : props.theme.secondary};
-
-  div  {
-   text-align: center;
-  }
-
- ${is("gradient")`
-   background: ${props => makeGradient(props.theme.primary)};
- `};
 
  transition: all ${speed}s;
  color: white;
  text-align:center;
+ -webkit-font-smoothing: antialiased;
+
+ bottom: ${props => props.iconLeft && "-0.1em"};
 
 
- ${props => props.theme.shadows.two};
+span {
+  display: inline;
+  width: auto;
+  margin: auto;
+}
 
-
- svg  {
-   transition: transform ${speed}s;
-   position: relative;
-   bottom: -0.0625em;
- }
+svg  {
+ transition: transform ${speed}s;
+ vertical-align: top;
+}
 
  &:before {
    ${absPseudo}
@@ -89,25 +96,46 @@ ${""/* hack required to align baseline of  buttons with icons */}
  }
 
 
- &:hover {
-   ${props => props.theme.shadows.four};
-   transform: translateY(-0.5px);
+&:hover {
+ ${props => props.theme.shadows.four};
+ transform: translateY(-0.5px);
 
-   &:before { opacity: 0.10; }
+ &:before { opacity: 0.10; }
 
-   div + svg {
-     transform: translateX(4px);
-   }
+ span + svg {
+   transform: translateX(4px);
+ }
 
+}
+
+&:active  {
+  ${props => props.theme.shadows.zero};
+  transform: translateY(0.5px);
+  &:before {
+    opacity:0.0;
   }
+}
 
-  &:active  {
-    ${props => props.theme.shadows.zero};
-    transform: translateY(0.5px);
-    &:before {
-      opacity:0.0;
-    }
-  }
+${is('alignRight')`
+  align-self: flex-end;
+  justify-self: flex-end;
+  margin-left: auto;
+`};
+
+${is('alignLeft')`
+  align-self: flex-start;
+  justify-self: flex-start;
+`};
+
+
+
+${is('big')`
+  font-size:1.25em;
+`};
+
+${is('small')`
+  font-size: 0.75em;
+`};
 
  ${is("rounded")`
    border-radius: ${props => props.theme.radius}px;
@@ -115,9 +143,9 @@ ${""/* hack required to align baseline of  buttons with icons */}
 
  ${is("caps")`
    text-transform: uppercase;
-   bottom: 0.05em;
-   div {
-     font-size: 0.85em;
+   span {
+     font-size: 0.92em;
+     letter-spacing: 0.25px;
      margin:0.075em 0;
    }
    font-weight: 500;
@@ -133,18 +161,12 @@ ${""/* hack required to align baseline of  buttons with icons */}
 
    &:hover {
      box-shadow: ${props =>
-       `inset 0px 0px 0px ${props.theme.borderWidth}px ${lighten(
-         0.1,
-         props.theme.primary
-       )}`}!important;
+       `inset 0px 0px 0px ${props.theme.borderWidth}px ${lighten( 0.1, props.theme.primary )}`}!important;
      color: ${props => lighten(0.1, props.theme.primary)};
    }
    &:active {
      box-shadow: ${props =>
-       `inset 0px 0px 0px ${props.theme.borderWidth}px ${darken(
-         0.03,
-         props.theme.primary
-       )}`}!important;
+       `inset 0px 0px 0px ${props.theme.borderWidth}px ${darken( 0.03, props.theme.primary )}`}!important;
      color: ${props => darken(0.05, props.theme.primary)};
    }
  `};
@@ -160,10 +182,12 @@ ${""/* hack required to align baseline of  buttons with icons */}
      color: ${props => darken(0.05, props.theme.primary)};
    }
  `};
-
-
-
-
 `;
+
+Button.defaultProps = {
+  primary: true,
+  rounded: true
+};
+
 
 export default Button;

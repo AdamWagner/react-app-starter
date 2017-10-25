@@ -33,9 +33,12 @@ let BackgroundImage = styled(bg)`
 `;
 
 let Toolbar = styled(t)`
-  background: none;
+  background: ${props => props.bg};
   color: darkgray;
   border-bottom: solid 1px gray;
+  position: relative;
+  z-index:99990;
+  padding: 1em;
 `;
 
 let Page = styled.div`
@@ -55,12 +58,6 @@ let Cell = styled(C)`
   overflow: visible; // to allow shadows
   ${space} `
 
-let Sm = styled(Small)`
-  display: block;
-  color: ${props => props.theme.main};
-`;
-
-
 
 /*------------------------------------------------------
  Application
@@ -79,7 +76,7 @@ class App extends Component {
           />
           <Box p={"1em"}>
             <Subhead>Card # {c}</Subhead>
-            <Sm>Sm meta text</Sm>
+            <Small>Sm meta text</Small>
           </Box>
         </Card>
       </Cell>
@@ -87,11 +84,20 @@ class App extends Component {
 
     return (
       <Page>
-        <ContainedSection  maxWidth={'90vw'} py={6} bg={theme.primary} bgSkew={5}>
+
+        <Container maxWidth='90vw'>
+          <Box flexDirection="row" p={3}>
+            <Box><p>My app</p></Box>
+            <Button outline iconRight="arrow-right" caps ml="auto">try demo</Button>
+            <Button iconRight="user" caps ml={3}>login</Button>
+          </Box>
+        </Container>
+
+        <ContainedSection  maxWidth={'90vw'} py={6} bg={theme.primary}>
             <Grid columns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}>
 
               <Cell pr={[null, '6em']}>
-                <h2>This is TwoPence</h2>
+                <h2>Know your company</h2>
                 <p>
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                   Quae, obcaecati? Itaque, a deleniti cumque fugit nemo magni
@@ -101,14 +107,11 @@ class App extends Component {
               </Cell>
 
               <Cell>
-                <Box bg={"white"} p={4} spacechildren={'true'} shadow={'true'}>
+                <Box bg={"white"} p={4} vSpaceChildren={'true'} shadow={'true'}>
                   <Input p={3} type="password" placeholder="test" />
                   <Input p={3} placeholder="test" />
                   <Input p={3} placeholder="test" />
-                  <Button rounded primary>View  demo</Button>
-                  <Button outline rounded ml={2}>View  demo</Button>
-                  <Button secondary rounded>View  demo</Button>
-                  <Button outline rounded iconRight="export" ml={2}>Get started</Button>
+                  <Button iconRight="export">Get started</Button>
                 </Box>
               </Cell>
 
@@ -120,14 +123,14 @@ class App extends Component {
             <Grid columns={['repeat(2, 1fr)']}>
               <Cell>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, adipisci. Itaque eos maiores consequatur molestias placeat asperiores necessitatibus suscipit, impedit ratione tenetur, totam error nobis vero non laudantium quod quasi.</p>
-                <Button secondary rounded mr={2} caps>go back</Button>
-                <Button secondary rounded mr={2} iconLeft="bell">cancel</Button>
-                <Button rounded primary iconRight="arrow-right">continue</Button>
+                <Button secondary mr={2} caps>go back</Button>
+                <Button secondary mr={2} iconLeft="bell">cancel</Button>
+                <Button iconRight="arrow-right">continue</Button>
 
               </Cell>
               <Cell>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, repellat itaque id nesciunt quidem praesentium reprehenderit quae, aperiam, dolores sunt excepturi sint consectetur quia magnam nulla aliquam in, debitis ipsum!</p>
-                <Button outline rounded>View  demo</Button>
+                <Button outline >View  demo</Button>
 
               </Cell>
 

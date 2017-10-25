@@ -10,6 +10,7 @@ import { Box as b, } from "rebass"; // http://jxnblk.com/rebass/components/
   p={[1, 4]}         // responsive array looks up padding indices in ${space}
   spaceChildren      // boolean gives children space via labotomized owl
   centerText         // boolean centers text on chilren
+
 >
   ...
 </Box>
@@ -17,7 +18,8 @@ import { Box as b, } from "rebass"; // http://jxnblk.com/rebass/components/
 
 // include in containers to
 // vertically space out their children
-let spacechildren = is('spacechildren')` & > * + * { margin-top: 1em; } `
+let vSpaceChildren = is('vSpaceChildren')` & > * + * { margin-top: 1em; } `
+let hSpaceChildren = is('hSpaceChildren')` & > * + * { margin-left: 1em; } `
 
 
 /*------------------------------------------------------
@@ -29,7 +31,15 @@ let spacechildren = is('spacechildren')` & > * + * { margin-top: 1em; } `
  ----------------------------------------------------- */
 
 const Box = styled(b)`
-  ${spacechildren}
+  ${vSpaceChildren}
+  ${hSpaceChildren}
+  display: flex;
+  flex-direction: ${props => props.flexDirection};
+  background: ${props => props.bg};
+
+  ${is('rounded')`
+    border-radius: ${props => props.theme.radius}px;
+  `};
 
   ${is('centerText')`
     text-align:center
@@ -39,6 +49,15 @@ const Box = styled(b)`
     ${props => props.theme.shadows.four};
   `};
 
+  ${is('alignRight')`
+    margin-left: auto;
+  `};
+
 `;
+
+Box.defaultProps = {
+  rounded: true,
+  flexDirection: 'column'
+}
 
 export default Box;
