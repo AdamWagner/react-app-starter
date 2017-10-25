@@ -12,7 +12,7 @@ import { injectGlobal } from "styled-components";
 // Global styles
 injectGlobal`
   * { box-sizing: border-box; -webkit-font-smoothing: antialiased;}
-  body { margin: 0; }
+  body { margin: 0; font-size: 110%; }
 `;
 
 let root = document.getElementById("root");

@@ -19,6 +19,7 @@ import {
 
 import  { Box, Section, Button  }  from './components/atoms'
 import  { ContainedSection }  from './components/molecules'
+import Icon from "./components/Icon";
 
 import { adjacent, convert, hue } from 'chromatism';
 import { colors } from './styleConfig/styleVars';
@@ -45,6 +46,7 @@ let Toolbar = styled(t)`
 let Page = styled.div`
   min-height: 100vh;
   color: ${props => props.color};
+  p {color: ${props => props.theme.colors.gray8};}
 `;
 
 
@@ -153,23 +155,29 @@ class App extends Component {
 
         {/*------------------------------------------------------
          Split section. Perhaps this should be an organism?
-
+         Todo - make border helper  responsive? Ugh.
          ----------------------------------------------------- */}
         <ContainedSection maxWidth={['100%', '90vw']} px={0} border={['top', 'bottom']}>
-          <Grid columns={["1fr", "1fr 2fr"]} gap={'0em'}>
+          <Grid columns={["1fr", "1fr 1fr"]} gap={'0em'}>
 
             <Cell px={4} py={[3, 5]} textAlign={["left", "right"]}>
+              <Icon name="bell" size={'5em'} color={theme.colors.teal5} thickness={1.5} />
+              <Subhead>Integrates with everything</Subhead>
               <p>Stripe integrates with even the most tricky subscription models. Browse the docs for more info on all subscription features.</p>
             </Cell>
 
             <Cell px={4} py={[3, 5]} border={['left', 'top']} bg={`linear-gradient(to right, ${theme.colors.gray0}, white)`}>
+              <Icon name="upload" size={'5em'} color={theme.colors.fuschia5} thickness={1.5} />
+              <Subhead>Does it with style</Subhead>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore qui iste dicta, deserunt, repellat blanditiis reiciendis fugiat maiores saepe debitis perspiciatis libero accusantium at aspernatur alias recusandae explicabo quae eaque.</p>
             </Cell>
 
           </Grid>
         </ContainedSection>
 
-
+        {/*------------------------------------------------------
+         Cards
+         ----------------------------------------------------- */}
         <Container maxWidth={"90vw"} py={[3, 4, 6]}>
           <Grid gap={"1em"} columns={["repeat(1,1fr)", "repeat(4,1fr)"]}>
             {cells.map(makeCard)}

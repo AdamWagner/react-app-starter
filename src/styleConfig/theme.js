@@ -13,7 +13,7 @@ const palette       = palx(baseColor);
 const saturateGrays = 10;
 palette.gray        = palette.gray.map(i => saturation(saturateGrays, i).hex);
 palette.black       = saturation(saturateGrays, palette.black).hex;
-palette.black       = lighten(0.08, palette.black);
+palette.black       = lighten(0.1, palette.black);
 const { r, g, b }   = convert(palette.black).rgb;
 palette.accent      = saturation(-10, hue(-50, baseColor).hex).hex;
 const flattened     = flattenColors(palette);
