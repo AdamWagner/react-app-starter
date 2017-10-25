@@ -18,3 +18,13 @@ export const clickableReset = css`
   -webkit-appearance: none;
   -webkit-tap-highlight-color: transparent;
 `
+
+export const borderHelper = (props) => {
+  let borders = []
+  if (props.border) {
+    props.border.forEach(v => {
+      borders.push(`border-${v}: solid 1px ${props.theme.colors.gray1};`)
+    })
+  }
+  return borders.join(`\n`);
+}

@@ -22,6 +22,7 @@ import  { ContainedSection }  from './components/molecules'
 
 import { adjacent, convert, hue } from 'chromatism';
 import { colors } from './styleConfig/styleVars';
+import {borderHelper} from './styleConfig/mixins'
 import theme from './styleConfig/theme';
 
 
@@ -60,8 +61,10 @@ let Grid = styled(G)`
 
 let Cell = styled(C)`
   color: ${props => props.color};
+  background: ${props => props.bg};
   overflow: visible; // to allow shadows
   ${space}
+  ${props => borderHelper};
 `
 
 /*------------------------------------------------------
@@ -125,22 +128,34 @@ class App extends Component {
 
 
         <ContainedSection  maxWidth={'90vw'} py={6}>
-            <Grid columns={['repeat(2, 1fr)']}>
+            <Grid columns={['1fr', 'repeat(2, 1fr)']}>
+
               <Cell>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, adipisci. Itaque eos maiores consequatur molestias placeat asperiores necessitatibus suscipit, impedit ratione tenetur, totam error nobis vero non laudantium quod quasi.</p>
                 <Button secondary mr={2} caps>go back</Button>
                 <Button secondary mr={2} iconLeft="bell">cancel</Button>
                 <Button iconRight="arrow-right">continue</Button>
-
               </Cell>
+
               <Cell>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, repellat itaque id nesciunt quidem praesentium reprehenderit quae, aperiam, dolores sunt excepturi sint consectetur quia magnam nulla aliquam in, debitis ipsum!</p>
                 <Button outline>View  demo</Button>
-
               </Cell>
 
-
             </Grid>
+        </ContainedSection>
+
+        <ContainedSection maxWidth={['100%', '90vw']} px={0} border={['top', 'bottom']}>
+          <Grid columns={["1fr", "1fr 2fr"]}>
+
+            <Cell px={4} py={5}>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore qui iste dicta, deserunt, repellat blanditiis reiciendis fugiat maiores saepe debitis perspiciatis libero accusantium at aspernatur alias recusandae explicabo quae eaque.</p> </Cell>
+
+            <Cell px={4} py={5} border={['left']} bg={`linear-gradient(to right, ${theme.colors.gray0}, white)`}>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore qui iste dicta, deserunt, repellat blanditiis reiciendis fugiat maiores saepe debitis perspiciatis libero accusantium at aspernatur alias recusandae explicabo quae eaque.</p>
+            </Cell>
+
+          </Grid>
         </ContainedSection>
 
 
