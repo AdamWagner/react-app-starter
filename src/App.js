@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom'
 
 import styled, {css} from "styled-components"; // https://github.com/donavon/styled-shortcuts
 import is, { isNot, isOr, isSomeNot } from "styled-is";
@@ -25,7 +26,6 @@ import theme from './styleConfig/theme';
 
 
 
-
 let BackgroundImage = styled(bg)`
   &:hover {
     opacity: 0.5;
@@ -42,8 +42,8 @@ let Toolbar = styled(t)`
 `;
 
 let Page = styled.div`
-  ${'' /* background: pink; */}
   min-height: 100vh;
+  color: ${props => props.color};
 `;
 
 
@@ -53,11 +53,16 @@ const columns = responsiveStyle({
   cssProperty: "grid-template-columns"
 });
 
-let Grid = styled(G)`${columns}`;
-let Cell = styled(C)`
-  overflow: visible; // to allow shadows
-  ${space} `
+let Grid = styled(G)`
+  ${columns}
+  grid-gap: ${props => props.gap || '1em'};
+`;
 
+let Cell = styled(C)`
+  color: ${props => props.color};
+  overflow: visible; // to allow shadows
+  ${space}
+`
 
 /*------------------------------------------------------
  Application
@@ -83,20 +88,20 @@ class App extends Component {
     );
 
     return (
-      <Page>
+      <Page color={theme.colors.black}>
 
         <Container maxWidth='90vw'>
-          <Box flexDirection="row" p={3}>
-            <Box><p>My app</p></Box>
+          <Box flexDirection="row" py={3}>
+            <Box vCenterChildren>My app</Box>
             <Button outline iconRight="arrow-right" caps ml="auto">try demo</Button>
             <Button iconRight="user" caps ml={3}>login</Button>
           </Box>
         </Container>
 
-        <ContainedSection  maxWidth={'90vw'} py={6} bg={theme.primary}>
+        <ContainedSection  maxWidth={'90vw'} py={[3,5,6]} bg={theme.gradient}>
             <Grid columns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}>
 
-              <Cell pr={[null, '6em']}>
+              <Cell pr={[null, '6em']} color="white">
                 <h2>Know your company</h2>
                 <p>
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -111,7 +116,7 @@ class App extends Component {
                   <Input p={3} type="password" placeholder="test" />
                   <Input p={3} placeholder="test" />
                   <Input p={3} placeholder="test" />
-                  <Button iconRight="export">Get started</Button>
+                  <Button to="/example" accent iconRight="export" caps>Get started</Button>
                 </Box>
               </Cell>
 
@@ -130,16 +135,13 @@ class App extends Component {
               </Cell>
               <Cell>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, repellat itaque id nesciunt quidem praesentium reprehenderit quae, aperiam, dolores sunt excepturi sint consectetur quia magnam nulla aliquam in, debitis ipsum!</p>
-                <Button outline >View  demo</Button>
+                <Button outline>View  demo</Button>
 
               </Cell>
 
 
             </Grid>
         </ContainedSection>
-
-
-
 
 
         <Container maxWidth={"90vw"} py={[3, 4, 6]}>

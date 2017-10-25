@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types';
+
 import styled from "styled-components"; // https://github.com/donavon/styled-shortcuts
 import is from "styled-is";
 import { lighten, darken } from "polished";
@@ -28,10 +30,25 @@ import theme from '../../styleConfig/theme'
  ----------------------------------------------------- */
 
 class ButtonBase extends Component {
+
+  onClick = () => {
+    let {to, history, onClick} = this.props
+
+    // if provided, onClick handler
+    if (onClick) {
+      onClick()
+    }
+
+    // Function like Link if to="/example-route" exists
+    if (to) {
+      history.push(to)
+    }
+  }
+
   render() {
     let { iconLeft, iconRight } = this.props;
     return (
-      <div className={this.props.className}>
+      <div className={this.props.className} onClick={this.onClick}>
         <span>
           {iconLeft && <Icon name={iconLeft} size={"1em"} thickness={3} />}
 
@@ -125,9 +142,10 @@ ${is('alignRight')`
 ${is('alignLeft')`
   align-self: flex-start;
   justify-self: flex-start;
+  margin-right:auto;
 `};
 
-
+${is('full')`width:100%;`};
 
 ${is('big')`
   font-size:1.25em;
@@ -146,7 +164,7 @@ ${is('small')`
    span {
      font-size: 0.92em;
      letter-spacing: 0.25px;
-     margin:0.075em 0;
+     margin:0.075em auto;
    }
    font-weight: 500;
  `};
@@ -182,6 +200,10 @@ ${is('small')`
      color: ${props => darken(0.05, props.theme.primary)};
    }
  `};
+
+ ${is('accent')`
+   background: ${props => props.theme.colors.accent};
+ `};
 `;
 
 Button.defaultProps = {
@@ -190,4 +212,4 @@ Button.defaultProps = {
 };
 
 
-export default Button;
+export default withRouter(Button);

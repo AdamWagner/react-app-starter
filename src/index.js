@@ -1,39 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import routes from "./config/routes";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
 
-import {Provider} from 'rebass';
-import theme from './styleConfig/theme';
+import { Provider } from "rebass";
+import theme from "./styleConfig/theme";
 
-
-import { injectGlobal } from 'styled-components'
+import { injectGlobal } from "styled-components";
 
 // Global styles
 injectGlobal`
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; -webkit-font-smoothing: antialiased;}
   body { margin: 0; }
-`
+`;
 
-const rootEl = document.getElementById('root')
+let root = document.getElementById("root");
+ReactDOM.render(<Provider theme={theme}>{routes},</Provider>, root);
 
-ReactDOM.render(
-  <Provider theme={theme}>
-    <App />
-  </Provider>,
-  rootEl
-);
-
+// skips page refresh when developing locally
 if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default
+  module.hot.accept("./config/routes", () => {
+    const NextApp = require("./config/routes").default;
     ReactDOM.render(
       <Provider theme={theme}>
         <NextApp />
       </Provider>,
-      rootEl
-    )
-  })
+      root
+    );
+  });
 }
 
 registerServiceWorker();
