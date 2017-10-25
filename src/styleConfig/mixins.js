@@ -19,6 +19,8 @@ export const clickableReset = css`
   -webkit-tap-highlight-color: transparent;
 `
 
+// props.border is an array of directions, e.g.,
+// props.border={['top', 'left']}
 export const borderHelper = (props) => {
   let borders = []
   if (props.border) {

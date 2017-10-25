@@ -56,8 +56,13 @@ const columns = responsiveStyle({
 
 let Grid = styled(G)`
   ${columns}
-  grid-gap: ${props => props.gap || '1em'};
+  grid-gap: ${props => props.gap  || '1em'};
 `;
+
+const textAlign = responsiveStyle({
+  prop: "textAlign",
+  cssProperty: "text-align"
+});
 
 let Cell = styled(C)`
   color: ${props => props.color};
@@ -65,6 +70,7 @@ let Cell = styled(C)`
   overflow: visible; // to allow shadows
   ${space}
   ${props => borderHelper};
+  ${textAlign}
 `
 
 /*------------------------------------------------------
@@ -145,13 +151,18 @@ class App extends Component {
             </Grid>
         </ContainedSection>
 
+        {/*------------------------------------------------------
+         Split section. Perhaps this should be an organism?
+
+         ----------------------------------------------------- */}
         <ContainedSection maxWidth={['100%', '90vw']} px={0} border={['top', 'bottom']}>
-          <Grid columns={["1fr", "1fr 2fr"]}>
+          <Grid columns={["1fr", "1fr 2fr"]} gap={'0em'}>
 
-            <Cell px={4} py={5}>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore qui iste dicta, deserunt, repellat blanditiis reiciendis fugiat maiores saepe debitis perspiciatis libero accusantium at aspernatur alias recusandae explicabo quae eaque.</p> </Cell>
+            <Cell px={4} py={[3, 5]} textAlign={["left", "right"]}>
+              <p>Stripe integrates with even the most tricky subscription models. Browse the docs for more info on all subscription features.</p>
+            </Cell>
 
-            <Cell px={4} py={5} border={['left']} bg={`linear-gradient(to right, ${theme.colors.gray0}, white)`}>
+            <Cell px={4} py={[3, 5]} border={['left', 'top']} bg={`linear-gradient(to right, ${theme.colors.gray0}, white)`}>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore qui iste dicta, deserunt, repellat blanditiis reiciendis fugiat maiores saepe debitis perspiciatis libero accusantium at aspernatur alias recusandae explicabo quae eaque.</p>
             </Cell>
 

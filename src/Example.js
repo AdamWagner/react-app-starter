@@ -74,7 +74,7 @@ class App extends Component {
         <Container maxWidth='90vw'>
           <Box flexDirection="row" py={3}>
             <Box>My app</Box>
-            <Button to="/s" outline iconLeft="arrow-left" caps ml="auto">back home</Button>
+            <Button to="/" outline iconLeft="arrow-left" caps ml="auto">back home</Button>
             <Button accent iconRight="user" caps ml={3}>login</Button>
           </Box>
         </Container>
