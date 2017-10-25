@@ -8,6 +8,7 @@ import flattenColors from "../utils/flattenColors";
  Generate color palette
  ----------------------------------------------------- */
 const baseColor = "#6772e5";
+// const baseColor = "#e69167";
 
 const palette       = palx(baseColor);
 const saturateGrays = 10;

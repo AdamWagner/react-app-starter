@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import routes from "./config/routes";
-import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
 import { Provider } from "rebass";
@@ -21,10 +20,11 @@ ReactDOM.render(<Provider theme={theme}>{routes},</Provider>, root);
 // skips page refresh when developing locally
 if (module.hot) {
   module.hot.accept("./config/routes", () => {
+    console.log('hot reload');
     const NextApp = require("./config/routes").default;
     ReactDOM.render(
       <Provider theme={theme}>
-        <NextApp />
+        {NextApp}
       </Provider>,
       root
     );

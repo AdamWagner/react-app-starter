@@ -24,6 +24,7 @@ import theme from '../../styleConfig/theme'
   caps               // Sets text in uppercase
   secondary          // sets background to white
   outline            // white background, primary color border
+  // adding comment
  >
   ...
 </Box>
@@ -100,7 +101,7 @@ span {
 
 svg  {
  transition: transform ${speed}s;
- vertical-align: top;
+ vertical-align: middle;
 }
 
  &:before {
