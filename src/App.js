@@ -102,14 +102,16 @@ class App extends Component {
     return (
       <Page color={theme.colors.black}>
 
+        {/* Header */}
         <Container maxWidth='90vw'>
           <Box flexDirection="row" py={3}>
             <Box vCenterChildren>My app</Box>
-            <Button outline iconRight="arrow-right" caps ml="auto">try demo</Button>
+            <Button outline iconRight="arrow-right" caps ml="auto"  show={['none', 'inherit']}>try demo</Button>
             <Button iconRight="user" caps ml={3}>login</Button>
           </Box>
         </Container>
 
+        {/* Hero section */}
         <ContainedSection  maxWidth={'90vw'} py={[3,5,6]} bg={theme.gradient}>
             <Grid columns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}>
 
@@ -140,6 +142,7 @@ class App extends Component {
         </ContainedSection>
 
 
+        {/* 2-column text */}
         <ContainedSection  maxWidth={'90vw'} py={6}>
             <Grid columns={['1fr', 'repeat(2, 1fr)']}>
 
@@ -162,7 +165,7 @@ class App extends Component {
          Split section. Perhaps this should be an organism?
          Todo - make border helper  responsive? Ugh.
          ----------------------------------------------------- */}
-        <ContainedSection maxWidth={['100%', '90vw']} px={0} border={['top bottom']}>
+        <ContainedSection maxWidth={['100%', '90vw']} px={0} border={'top bottom'}>
           <Grid columns={["1fr", "1fr 1fr"]} gap={'0em'}>
 
             <Cell px={4} py={[3, 5]} textAlign={["left", "right"]}>

@@ -6,7 +6,7 @@ import styled from "styled-components"; // https://github.com/donavon/styled-sho
 import is from "styled-is";
 import { lighten, darken } from "polished";
 import { adjacent, convert, brightness } from "chromatism";
-import { absPseudo, clickableReset } from "../../styleConfig/mixins";
+import { absPseudo, clickableReset, show } from "../../styleConfig/mixins";
 import { makeGradient } from "../../styleConfig/styleVars";
 import { space } from "styled-system";
 import Icon from "../Icon";
@@ -81,6 +81,7 @@ const Button = styled(ButtonBase)`
    props.primary ? props.theme.primary : props.theme.secondary};
 
  display: inline-flex;
+ ${show};
  align-items: center;
  position: relative;
  padding: 0.75em 1.5em;
@@ -88,6 +89,7 @@ const Button = styled(ButtonBase)`
  transition: all ${speed}s;
  color: white;
  text-align:center;
+ white-space: nowrap;
  -webkit-font-smoothing: antialiased;
 
  bottom: ${props => props.iconLeft && "-0.1em"};
