@@ -20,7 +20,6 @@ ReactDOM.render(<Provider theme={theme}>{routes},</Provider>, root);
 // skips page refresh when developing locally
 if (module.hot) {
   module.hot.accept("./config/routes", () => {
-    console.log('hot reload');
     const NextApp = require("./config/routes").default;
     ReactDOM.render(
       <Provider theme={theme}>

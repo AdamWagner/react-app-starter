@@ -26,8 +26,6 @@ export const colors = {
   pink
 }
 
-
-
 export function makeGradient(color, shift=25) {
   let steps = 2;
   let colors = adjacent(shift, 3, color);

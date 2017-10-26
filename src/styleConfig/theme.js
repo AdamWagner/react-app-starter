@@ -25,6 +25,10 @@ const theme = {
   color,
   colors: flattened,
   primary: baseColor,
+  breakpoints: [
+    // min-width breakpoints in ems
+    40, 52, 64
+  ],
   secondary: color.cloud,
   gradient: `linear-gradient(to bottom right, ${baseColor}, ${palette.accent})`,
   borderWidth: 2,

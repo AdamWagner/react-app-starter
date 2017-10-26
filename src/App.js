@@ -17,7 +17,7 @@ import {
   Small
 } from "rebass"; // http://jxnblk.com/rebass/components/
 
-import  { Box, Section, Button  }  from './components/atoms'
+import  { Box, Section, Button, TextGradient }  from './components/atoms'
 import  { ContainedSection }  from './components/molecules'
 import Icon from "./components/Icon";
 
@@ -66,6 +66,7 @@ const textAlign = responsiveStyle({
   cssProperty: "text-align"
 });
 
+
 let Cell = styled(C)`
   color: ${props => props.color};
   background: ${props => props.bg};
@@ -113,7 +114,11 @@ class App extends Component {
             <Grid columns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}>
 
               <Cell pr={[null, '6em']} color="white">
-                <h2>Know your company</h2>
+                <h2>
+                  <TextGradient color1={theme.colors.blue2} color2={theme.colors.teal4}>
+                    Know your company
+                  </TextGradient>
+                </h2>
                 <p>
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                   Quae, obcaecati? Itaque, a deleniti cumque fugit nemo magni
@@ -157,16 +162,20 @@ class App extends Component {
          Split section. Perhaps this should be an organism?
          Todo - make border helper  responsive? Ugh.
          ----------------------------------------------------- */}
-        <ContainedSection maxWidth={['100%', '90vw']} px={0} border={['top', 'bottom']}>
+        <ContainedSection maxWidth={['100%', '90vw']} px={0} border={['top bottom']}>
           <Grid columns={["1fr", "1fr 1fr"]} gap={'0em'}>
 
             <Cell px={4} py={[3, 5]} textAlign={["left", "right"]}>
               <Icon name="bell" size={'5em'} color={theme.colors.teal5} thickness={1.5} />
-              <Subhead>Integrates with everything</Subhead>
+              <Subhead>
+                <TextGradient color1={theme.primary} color2={theme.colors.violet5}>
+                  Integrates with everything
+                </TextGradient>
+              </Subhead>
               <p>Stripe integrates with even the most tricky subscription models. Browse the docs for more info on all subscription features.</p>
             </Cell>
 
-            <Cell px={4} py={[3, 5]} border={['left', 'top']} bg={`linear-gradient(to right, ${theme.colors.gray0}, white)`}>
+            <Cell px={4} py={[3, 5]} border={['top','left']} bg={`linear-gradient(to right, ${theme.colors.gray0}, white)`}>
               <Icon name="upload" size={'5em'} color={theme.colors.fuschia5} thickness={1.5} />
               <Subhead>Does it with style</Subhead>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore qui iste dicta, deserunt, repellat blanditiis reiciendis fugiat maiores saepe debitis perspiciatis libero accusantium at aspernatur alias recusandae explicabo quae eaque.</p>
