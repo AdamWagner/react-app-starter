@@ -30,14 +30,17 @@ export const show = responsiveStyle({
   cssProperty: "display"
 });
 
-/*props.border is an array of space-separated border directions
-  corresponding to breakpoints. E.g.,
-  props.border={['top left', 'top']} would result in
-  a top & left border at the small breakpoint,
-  and only a top border at the middle breakpoint and up.
-*/
+/*props.border is
+  1) an array of space-separated border directions
+    corresponding to breakpoints. E.g.,
+    props.border={['top left', 'top']} would result in
+    a top & left border at the small breakpoint,
+    and only a top border at the middle breakpoint and up.
 
-// TODO: accept non-responsive values (just string, not array)
+  2) a string of space separated border directions
+    when no responsiveness needed, e.g.
+    props.border='top left'
+*/
 export const borderHelper = ({ border:borderProp, theme }) => {
   let borderMaker = curry((target, bp, rule, val) => {
     target.push(`@media (min-width: ${bp}) {
