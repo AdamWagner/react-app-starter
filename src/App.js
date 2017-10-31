@@ -17,7 +17,7 @@ import {
   Small
 } from "rebass"; // http://jxnblk.com/rebass/components/
 
-import  { Box, Section, Button, TextGradient }  from './components/atoms'
+import  { Box, Section, Button, TextGradient, InputText, Form }  from './components/atoms'
 import  { ContainedSection }  from './components/molecules'
 import Icon from "./components/Icon";
 
@@ -131,10 +131,16 @@ class App extends Component {
 
               <Cell>
                 <Box bg={"white"} p={4} vSpaceChildren={'true'} shadow={'true'}>
-                  <Input p={3} type="password" placeholder="test" />
-                  <Input p={3} placeholder="test" />
-                  <Input p={3} placeholder="test" />
-                  <Button to="/example" accent iconRight="export" caps>Get started</Button>
+
+                    <Form>
+                      <InputText label="Name" name="name" placeholder="Full name"/>
+                      <InputText label="Password" type="password" name="password"/>
+                      <InputText label="Email" type="email" name="email"/>
+                      <Button accent big iconRight="export" caps full mt={2}>Get started</Button>
+                    </Form>
+
+
+
                 </Box>
               </Cell>
 
@@ -163,9 +169,9 @@ class App extends Component {
 
         {/*------------------------------------------------------
          Split section. Perhaps this should be an organism?
-         Todo - make border helper  responsive? Ugh.
          ----------------------------------------------------- */}
         <ContainedSection maxWidth={['100%', '90vw']} px={0} border={'top bottom'}>
+
           <Grid columns={["1fr", "1fr 1fr"]} gap={'0em'}>
 
             <Cell px={4} py={[3, 5]} textAlign={["left", "right"]}>
@@ -185,6 +191,7 @@ class App extends Component {
             </Cell>
 
           </Grid>
+
         </ContainedSection>
 
         {/*------------------------------------------------------

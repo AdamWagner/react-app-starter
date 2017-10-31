@@ -24,7 +24,6 @@ import theme from '../../styleConfig/theme'
   caps               // Sets text in uppercase
   secondary          // sets background to white
   outline            // white background, primary color border
-  // adding comment
  >
   ...
 </Box>
@@ -32,11 +31,21 @@ import theme from '../../styleConfig/theme'
 
 class ButtonBase extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: false
+    };
+  }
+
   onClick = () => {
-    let {to, history, onClick} = this.props
+    let {to, history, onClick, loadingText} = this.props
 
     // if provided, onClick handler
     if (onClick) {
+      // if loadingText provide, show it befor running on click
+      // TODO: this is just a shell of a loading state. Need a real use case to flesh it out.
+      if (loadingText) { this.setState({isLoading: true}) }
       onClick()
     }
 
@@ -47,9 +56,20 @@ class ButtonBase extends Component {
   }
 
   render() {
-    let { iconLeft, iconRight } = this.props;
+    let { iconLeft, iconRight, loadingText, children, canContinue } = this.props;
+    let buttonText = this.state.isLoading ? loadingText : children;
+
+    // if child of <Form>, will recieve canContinue prop
+    // which will keep button disabled until form is valid.
+    let disabled = canContinue===false ? 'disabled' : '';
+    let classNames = [this.props.className, disabled].join(' ');
+
     return (
-      <div className={this.props.className} onClick={this.onClick}>
+      <div className={classNames} onClick={this.onClick}
+        role="button"
+        tabindex="0" // allows button to be focusable with tab key. "0" defers to document order.
+        onKeyPress={this.onClick} // enables hitting enter to click button
+        >
         <span>
           {iconLeft && <Icon name={iconLeft} size={"1em"} thickness={3} />}
 
@@ -59,7 +79,7 @@ class ButtonBase extends Component {
               marginRight: iconRight && "0.5em"
             }}
           >
-            {this.props.children}
+            {buttonText}
           </span>
 
           {iconRight && <Icon name={iconRight} size={"1em"} thickness={3} />}
@@ -70,7 +90,9 @@ class ButtonBase extends Component {
 }
 
 // variables
-let speed = 0.2;
+let speed          = 0.2; // global animation speed
+let lift           = 1;   // pixels button should move vertically on hover
+let iconRightDrift = 0;   // pixels  the right icon should move right on hover
 
 // component
 const Button = styled(ButtonBase)`
@@ -106,34 +128,42 @@ svg  {
  vertical-align: middle;
 }
 
- &:before {
-   ${absPseudo}
-   border-radius:${props => props.theme.radius}px;
-   background: linear-gradient(to bottom, white, black);
-   mix-blend-mode overlay;
-   opacity: 0.05;
-   transition: opacity ${speed}s;
- }
+${'' /* creates a slight gradient overlayed on the base color  */}
+&:before {
+ ${absPseudo}
+ border-radius:${props => props.theme.radius}px;
+ background: linear-gradient(to bottom, white, black);
+ mix-blend-mode overlay;
+ opacity: 0.05;
+ transition: opacity ${speed}s;
+}
 
 
-&:hover {
+&:hover, &:focus {
  ${props => props.theme.shadows.four};
- transform: translateY(-0.5px);
+ transform: translateY(-${lift}px);
 
  &:before { opacity: 0.10; }
 
  span + svg {
-   transform: translateX(4px);
+   transform: translateX(${iconRightDrift}px);
  }
 
 }
 
 &:active  {
   ${props => props.theme.shadows.zero};
-  transform: translateY(0.5px);
+  transform: translateY(${lift}px);
   &:before {
     opacity:0.0;
   }
+}
+
+&.disabled {
+  opacity: 0.8!important;
+  pointer-events: none;
+  box-shadow: none;
+  &:before  { opacity: 0; }
 }
 
 ${is('alignRight')`

@@ -6,10 +6,12 @@ import registerServiceWorker from "./registerServiceWorker";
 import { Provider } from "rebass";
 import theme from "./styleConfig/theme";
 
+import styledNormalize from 'styled-normalize'
 import { injectGlobal } from "styled-components";
 
 // Global styles
 injectGlobal`
+  ${styledNormalize}
   * { box-sizing: border-box; -webkit-font-smoothing: antialiased;}
   body { margin: 0; font-size: 110%; }
 `;
