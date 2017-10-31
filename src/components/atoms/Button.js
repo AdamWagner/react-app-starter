@@ -39,9 +39,14 @@ class ButtonBase extends Component {
   }
 
   onClick = () => {
-    let {to, history, onClick, loadingText} = this.props
+    let {to, history, onClick, onSubmit, loadingText} = this.props
 
-    // if provided, onClick handler
+    // if provided, run onSubmit handler
+    if (onSubmit) {
+      onSubmit();
+    }
+
+    // if provided, run onClick handler
     if (onClick) {
       // if loadingText provide, show it befor running on click
       // TODO: this is just a shell of a loading state. Need a real use case to flesh it out.
@@ -67,7 +72,7 @@ class ButtonBase extends Component {
     return (
       <div className={classNames} onClick={this.onClick}
         role="button"
-        tabindex="0" // allows button to be focusable with tab key. "0" defers to document order.
+        tabIndex="0" // allows button to be focusable with tab key. "0" defers to document order.
         onKeyPress={this.onClick} // enables hitting enter to click button
         >
         <span>

@@ -132,7 +132,7 @@ class App extends Component {
               <Cell>
                 <Box bg={"white"} p={4} vSpaceChildren={'true'} shadow={'true'}>
 
-                    <Form>
+                    <Form handleSubmit={function() {console.log(this.state.formData); }}>
                       <InputText label="Name" name="name" placeholder="Full name"/>
                       <InputText label="Password" type="password" name="password"/>
                       <InputText label="Email" type="email" name="email"/>

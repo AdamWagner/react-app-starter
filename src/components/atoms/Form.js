@@ -51,17 +51,29 @@ class FormBase extends Component {
     this.validate(name, value);
   }
 
+  // the provided handler must be a vanilla JS function, not an arrow function. Oddly.
+  onSubmit = () => {
+    let handleSubmit = this.props.handleSubmit.bind(this);
+    handleSubmit();
+  }
+
   renderChildren() {
     // wraps children with handlers to
     // bind data to formData and validate on blur
     return React.Children.map(this.props.children, child => {
-      console.log('is all valid?',this.allValid());
-      return React.cloneElement(child, {
-        onChange: this.handleInputChange,
-        onBlur: this.handleBlur,
-        error: this.state.errors[child.props.name],
-        canContinue: this.allValid()
-      })
+      let type = child.type.displayName
+      if (type==='InputText') {
+        return React.cloneElement(child, {
+          onChange: this.handleInputChange,
+          onBlur: this.handleBlur,
+          error: this.state.errors[child.props.name],
+        })
+      } else if (type==='withRouter(Button)') {
+          return React.cloneElement(child, {
+          canContinue: this.allValid(),
+          onSubmit: this.onSubmit
+        })
+      }
     })
   }
 
