@@ -4,7 +4,6 @@ import {all, equals} from 'ramda';
 
 import validation from '../../utils/validation';
 
-
 import styled from "styled-components"; // https://github.com/donavon/styled-shortcuts
 
 

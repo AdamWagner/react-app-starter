@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from "styled-components"; // https://github.com/donavon/styled-shortcuts
 import is from "styled-is";
 import { Box as b, } from "rebass"; // http://jxnblk.com/rebass/components/
+import filterCustomProps from '../../utils/filterCustomProps';
+import {vSpaceChildren, hSpaceChildren} from '../../styleConfig/mixins'
 
 /*------------------------------------------------------
 <Box
@@ -14,26 +16,8 @@ import { Box as b, } from "rebass"; // http://jxnblk.com/rebass/components/
   vCenterChildren    // vertically centers children regardless of flex-direction
   flexDirection      // defaults to 'column'.
   rounded            // rounds corners to theme radius. Default true.
-
->
-  ...
-</Box>
+/>
  ----------------------------------------------------- */
-
-// include in containers to
-// vertically space out their children
-let vSpaceChildren = is('vSpaceChildren')` & > * + * { margin-top: 1em; } `
-let hSpaceChildren = is('hSpaceChildren')` & > * + * { margin-left: 1em; } `
-
-
-
-const filtered = (Component, filteredProps) => (props) => {
-  const newProps = Object.assign({}, props)
-  filteredProps.forEach(propName => {
-    delete newProps[propName]
-  })
-  return <Component {...newProps} />
-}
 
 
 
@@ -43,10 +27,10 @@ const filtered = (Component, filteredProps) => (props) => {
  is addressed. Otherwise they get passed to dom as attrs and React throws errors.
  ----------------------------------------------------- */
 let customProps = ['vSpaceChildren', 'rounded', 'vCenterChildren', 'flexDirection'];
-let Base = filtered(b, customProps)
+let Base = filterCustomProps(b, customProps)
 
 
-/*------------------------------------------------------ 
+/*------------------------------------------------------
  Styles
  ----------------------------------------------------- */
 const Box = styled(Base)`

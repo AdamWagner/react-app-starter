@@ -112,7 +112,7 @@ class App extends Component {
         </Container>
 
         {/* Hero section */}
-        <ContainedSection  maxWidth={'90vw'} py={[3,5,6]} bg={theme.gradient}>
+        <ContainedSection  maxWidth={'90vw'} py={[3,5,6]} bg={theme.gradient} bgSkew={0}>
             <Grid columns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}>
 
               <Cell pr={[null, '6em']} color="white">
@@ -169,7 +169,7 @@ class App extends Component {
         {/*------------------------------------------------------
          Split section. Perhaps this should be an organism?
          ----------------------------------------------------- */}
-        <ContainedSection maxWidth={['100%', '90vw']} px={0} border={'top bottom'}>
+        <ContainedSection  bgSkew={15} maxWidth={['100%', '90vw']} px={0} border={'top bottom'}>
 
           <Grid columns={["1fr", "1fr 1fr"]} gap={'0em'}>
 

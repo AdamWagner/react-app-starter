@@ -4,10 +4,20 @@ import { responsiveStyle, space } from "styled-system";
 import {dissoc} from 'ramda'; // http://ramdajs.com/docs/
 
 import {borderHelper} from '../../styleConfig/mixins'
+import filterCustomProps from '../../utils/filterCustomProps';
 
 import { Box } from  '../atoms';
-import { Container as c } from 'rebass'; // http://jxnblk.com/rebass/components/
+import { Container } from '../atoms';
 import { Section } from '../atoms'
+
+/*------------------------------------------------------
+<SectionBg
+  bg={theme.colors.blue2}        // sets bg color
+  bgSkew={5}                     // skews the bg by degrees
+  maxWidth={'90vw'}              // max width of inner container
+  border={['left top', 'top']}   // see borderHelper in styleConfig/mixins
+/>
+ ----------------------------------------------------- */
 
 const SectionBg = styled.div`
   top: 0;
@@ -22,29 +32,17 @@ const SectionBg = styled.div`
   background: ${props => props.bg};
 `
 
-const maxWidth = responsiveStyle({
-  prop: "maxWidth",
-  cssProperty: "max-width"
-});
+// debugger
+const ContainedSection = ( {border, bg, bgSkew, maxWidth, children, ...props} ) => (
+  <Section border={border}>
 
+    {/* if props.bg, render SectionBg */}
+    {bg && <SectionBg bg={bg} bgSkew={bgSkew} /> }
 
-
-let SectionEx = Section.extend`
-  ${props => borderHelper};
-`
-
-
-let Container = styled(c)`
-  ${maxWidth}
-`
-
-const ContainedSection = ( props ) => (
-  <SectionEx border={props.border}>
-    <SectionBg bg={props.bg} bgSkew={props.bgSkew} />
-    <Container maxWidth={props.maxWidth} {...dissoc(['bg', 'border'], props)} style={{zIndex:1, position:'relative'}}>
-      {props.children}
+    <Container maxWidth={maxWidth} {...dissoc(['bg', 'border'], props)} style={{zIndex:1, position:'relative'}}>
+      {children}
     </Container>
-  </SectionEx>
+  </Section>
 );
 
 export default ContainedSection;

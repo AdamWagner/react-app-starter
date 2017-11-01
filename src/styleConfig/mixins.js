@@ -1,5 +1,6 @@
 import { css } from "styled-components"; // https://github.com/donavon/styled-shortcuts
 import { responsiveStyle } from "styled-system";
+import is from "styled-is";
 import { without, curry } from "ramda";
 
 export const absPseudo = css`
@@ -21,6 +22,14 @@ export const clickableReset = css`
   -webkit-tap-highlight-color: transparent;
 `;
 
+
+export const maxWidth = responsiveStyle({
+  prop: "maxWidth",
+  cssProperty: "max-width"
+});
+
+
+
 // TODO: uncouple from display value
 export const show = responsiveStyle({
   prop: "show",
@@ -29,6 +38,13 @@ export const show = responsiveStyle({
   // show={['none', 'inline-flex']}
   cssProperty: "display"
 });
+
+
+// include in containers to
+// vertically space out their children
+export const vSpaceChildren = is('vSpaceChildren')` & > * + * { margin-top: 1em; } `
+export const hSpaceChildren = is('hSpaceChildren')` & > * + * { margin-left: 1em; } `
+
 
 /*props.border is
   1) an array of space-separated border directions
