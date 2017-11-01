@@ -26,7 +26,7 @@ import {vSpaceChildren, hSpaceChildren} from '../../styleConfig/mixins'
  until https://github.com/styled-components/styled-components/issues/439
  is addressed. Otherwise they get passed to dom as attrs and React throws errors.
  ----------------------------------------------------- */
-let customProps = ['vSpaceChildren', 'rounded', 'vCenterChildren', 'flexDirection'];
+let customProps = ['spreadChildren','vSpaceChildren', 'rounded', 'vCenterChildren', 'flexDirection'];
 let Base = filterCustomProps(b, customProps)
 
 
@@ -54,6 +54,10 @@ const Box = styled(Base)`
 
   ${is('alignRight')`
     margin-left: auto;
+  `};
+
+  ${is('spreadChildren')`
+    ${props => props.flexDirection == 'column' ? 'align-content: space-between' : 'justify-content:space-between'};
   `};
 
   ${is('vCenterChildren')`

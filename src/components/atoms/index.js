@@ -4,4 +4,7 @@ export { default as Container } from './Container.js';
 export { default as Button } from './Button.js';
 export { default as TextGradient } from './TextGradient.js';
 export { default as InputText } from './InputText.js';
+export { default as Checkbox } from './Checkbox.js';
+export { default as Selectbox } from './Selectbox.js';
 export { default as Form } from './Form.js';
+export { default as Modal } from './Modal.js';

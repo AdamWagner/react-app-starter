@@ -17,7 +17,7 @@ import {
   Small
 } from "rebass"; // http://jxnblk.com/rebass/components/
 
-import  { Box, Section, Button, TextGradient, InputText, Form }  from './components/atoms'
+import  { Box, Section, Button, Modal, TextGradient, InputText, Checkbox, Selectbox, Form }  from './components/atoms'
 import  { ContainedSection }  from './components/molecules'
 import Icon from "./components/Icon";
 
@@ -25,6 +25,7 @@ import { adjacent, convert, hue } from 'chromatism';
 import { colors } from './styleConfig/styleVars';
 import {borderHelper} from './styleConfig/mixins'
 import theme from './styleConfig/theme';
+
 
 
 
@@ -81,6 +82,24 @@ let Cell = styled(C)`
  ----------------------------------------------------- */
 
 class App extends Component {
+
+	constructor(props) {
+			super(props);
+			this.state = {
+				modalIsOpen:false,
+			};
+		}
+
+  openModal = () => {
+    this.setState({modalIsOpen: true});
+  }
+
+
+  closeModal = () => {
+    this.setState({modalIsOpen: false});
+  }
+
+
   render() {
     let cells = [1, 2, 3, 4];
 
@@ -127,18 +146,26 @@ class App extends Component {
                   voluptatum dicta harum. Id voluptatibus vitae architecto,
                   atque provident ducimus harum accusamus nesciunt.
                 </p>
+
+                <Button secondary onClick={this.openModal}>Open Modal</Button>
+                <Modal title="Add position" isOpen={this.state.modalIsOpen} closeModal={this.closeModal}>
+                  <p>Some stuff.</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis nisi mollitia, non est nihil iste quo molestias reiciendis, blanditiis, voluptas iure odit voluptatibus ad. Qui similique molestias odio, soluta rerum?</p>
+                </Modal>
+
               </Cell>
 
               <Cell>
-                <Box bg={"white"} p={4} vSpaceChildren={'true'} shadow={'true'}>
+                <Box bg={"white"} p={4} shadow={'true'}>
 
-                    <Form handleSubmit={function() {console.log(this.state.formData); }}>
-                      <InputText label="Name" name="name" placeholder="Full name"/>
-                      <InputText label="Password" type="password" name="password"/>
-                      <InputText label="Email" type="email" name="email"/>
-                      <Button accent big iconRight="export" caps full mt={2}>Get started</Button>
-                    </Form>
-
+                  <Form vSpaceChildren={true} handleSubmit={function() {console.log(this.state.formData); }}>
+                    <InputText label="Name" name="name" placeholder="Full name"/>
+                    <InputText label="Password" type="password" name="password"/>
+                    <InputText label="Email" type="email" name="email" helpText="Please enter a valid email."/>
+                    <Selectbox name="roles" label="Position" helpText="Please select a position." options={['Barista', 'Server', 'Hostess']} />
+                    <Checkbox name="terms" label="I agree to the terms and conditions"/>
+                    <Button accent big iconRight="export" caps full mt={2}>Get started</Button>
+                  </Form>
 
                 </Box>
               </Cell>

@@ -9,11 +9,21 @@ import theme from "./styleConfig/theme";
 import styledNormalize from 'styled-normalize'
 import { injectGlobal } from "styled-components";
 
+
+
 // Global styles
 injectGlobal`
   ${styledNormalize}
   * { box-sizing: border-box; -webkit-font-smoothing: antialiased;}
-  body { margin: 0; font-size: 110%; }
+
+  body {
+    margin: 0;
+    font-size: 110%;
+    color: ${theme.colors.gray8};
+    font-family: ${theme.font};
+  }
+
+
 `;
 
 let root = document.getElementById("root");

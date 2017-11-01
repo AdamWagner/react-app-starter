@@ -3,6 +3,8 @@ import { responsiveStyle } from "styled-system";
 import is from "styled-is";
 import { without, curry } from "ramda";
 
+import theme from './theme'
+
 export const absPseudo = css`
   position: absolute;
   top: 0;
@@ -28,6 +30,28 @@ export const maxWidth = responsiveStyle({
   cssProperty: "max-width"
 });
 
+export const borderTheme = `
+  border-radius: ${theme.radius}px;
+  border-width: ${theme.borderWidth}px;
+  border-color: ${theme.colors.gray3};
+  border-style: solid;
+`
+
+
+export const inputNormalize = `
+  margin:0;
+  border:0;
+  padding:0;
+  display:inline-block;
+  vertical-align:middle;
+  white-space:normal;
+  background:none;
+  line-height:1;
+
+  &:focus {
+  	outline:0;
+  }
+`
 
 
 // TODO: uncouple from display value

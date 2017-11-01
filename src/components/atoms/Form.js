@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {all, equals} from 'ramda';
 
 import validation from '../../utils/validation';
+import {vSpaceChildren, hSpaceChildren} from '../../styleConfig/mixins'
 
 import styled from "styled-components"; // https://github.com/donavon/styled-shortcuts
 
@@ -18,10 +19,12 @@ class FormBase extends Component {
   }
 
   validate({type, name, value}) {
-    let error = validation[type](value);
+    let typeClean = type.replace('-', ''); // removes dashes in type names such as 'select-one'
+    let error = validation[typeClean](value);
     this.setState({errors: {...this.state.errors, [name]: error}})
   }
 
+  // TODO - fix this to work with "type" lookup for validation rule
   allValid = () => {
     // get array of booleans indicating each value's error status
     // let formValueErrors = Object.values(this.state.formData).map(() => {});
@@ -31,7 +34,10 @@ class FormBase extends Component {
   }
 
   handleInputChange = (evt) => {
-    let { name, value, type } = evt.target;
+    let target = evt.target;
+    let { name, type } = target;
+    let value = type === 'checkbox' ? target.checked : target.value;
+
     let formData = Object.assign(this.state.formData, { [name]: {value, type} });
 
     // if the input is invalid,
@@ -51,6 +57,7 @@ class FormBase extends Component {
 
   // the provided handler must be a vanilla JS function, not an arrow function. Oddly.
   onSubmit = () => {
+    // add a pre-submit validation of all fields
     let handleSubmit = this.props.handleSubmit.bind(this);
     handleSubmit();
   }
@@ -60,7 +67,7 @@ class FormBase extends Component {
     // bind data to formData and validate on blur
     return React.Children.map(this.props.children, child => {
       let type = child.type.displayName
-      if (type==='InputText') {
+      if (type==='InputText' || type==='Checkbox' || type==='Selectbox') {
         return React.cloneElement(child, {
           onChange: this.handleInputChange,
           onBlur: this.handleBlur,
@@ -76,8 +83,9 @@ class FormBase extends Component {
   }
 
   render () {
+    console.log(this.state.formData);
     return (
-      <form>
+      <form className={this.props.className}>
         {this.renderChildren()}
       </form>
       )
@@ -85,7 +93,7 @@ class FormBase extends Component {
 }
 
 const Form = styled(FormBase)`
-  display: block;
+  ${vSpaceChildren};
 `
 
 export default Form;

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 
+import {inputNormalize, borderTheme} from '../../styleConfig/mixins'
 import styled from "styled-components"; // https://github.com/donavon/styled-shortcuts
 import is from "styled-is";
 import theme from '../../styleConfig/theme'
@@ -26,13 +27,13 @@ class InputBase extends Component {
   }
 
   render () {
-    let {type, label, name, placeholder, onBlur, onChange} = this.props;
+    let {type, label, name, placeholder, onBlur, onChange, helpText='*Required'} = this.props;
     let classes = [this.props.className, this.validate()].join(' ');
 
     return (
       <div className={classes}>
           <input type={type || 'text'} name={name} placeholder={placeholder || label} onBlur={onBlur} onChange={onChange} />
-          <div className="help-text">*Required</div>
+          <div className="help-text">{helpText}</div>
           <label>{label}</label>
       </div>
       )
@@ -43,35 +44,16 @@ class InputBase extends Component {
 let validColor = theme.colors.teal;
 let invalidColor = theme.colors.red5;
 
-let inputNormalize = `
-  margin:0;
-  border:0;
-  padding:0;
-  display:inline-block;
-  vertical-align:middle;
-  white-space:normal;
-  background:none;
-  line-height:1;
-
-  &:focus {
-  	outline:0;
-  }
-`
 
 const InputText = styled(InputBase)`
 
   position: relative;
   padding-top: 1.75em;
-  margin-bottom: 1em;
   transition: height .3s ease-in-out;
 
   input {
     ${inputNormalize}
-
-    border-radius: ${theme.radius}px;
-    border-width: ${theme.borderWidth}px;
-    border-color: ${theme.colors.gray3};
-    border-style: solid;
+    ${borderTheme}
 
     width: 100%;
     padding: 0.75em 1em;
