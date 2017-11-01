@@ -3,5 +3,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Status: WIP
 
 #Todo
-[] Factor out common functions
-[] Fix or remove  "show" mixin
+- [] Factor out common functions
+- [] Fix or remove  "show" mixin
