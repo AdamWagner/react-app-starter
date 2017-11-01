@@ -21,7 +21,7 @@ class InputBase extends Component {
 
   componentDidMount = () => {
     // registers input with form, populating formData state.
-    let fakeEvent = { target: {name: this.props.name, value: ''}}
+    let fakeEvent = { target: {name: this.props.name, value: '', type:''}}
     this.props.onChange(fakeEvent);
   }
 
